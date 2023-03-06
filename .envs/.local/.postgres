@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=telegrambots
+POSTGRES_USER=YcsrswHKVEkEanJgDYtpGfxDgoHMfSjL
+POSTGRES_PASSWORD=T37tIh4wbXv0fUyqsNTFiTnOFelmysK5IajVVcxHCO22KZQr3bksvP9mqFwxbJD8
