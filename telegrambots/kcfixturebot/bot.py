@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher
-from eastern_bots.utils.bot_state_storage import DjangoCacheStorage
+
+from telegrambots.utils.bot_state_storage import DjangoCacheStorage
 
 dp = Dispatcher(storage=DjangoCacheStorage())
 

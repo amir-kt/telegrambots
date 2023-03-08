@@ -74,7 +74,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "telegrambots.users",
-    "eastern_bots.kcfixturebot",
+    "telegrambots.kcfixturebot",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
