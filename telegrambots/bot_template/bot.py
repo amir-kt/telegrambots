@@ -3,7 +3,6 @@ import typing as t
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from asgiref.sync import sync_to_async
-
 from eastern_bots.utils.bot_state_storage import DjangoCacheStorage
 
 dp = Dispatcher(storage=DjangoCacheStorage())
@@ -13,7 +12,6 @@ dp = Dispatcher(storage=DjangoCacheStorage())
 async def save_user_and_chat_middleware(
     handler, event: Message, data: t.Dict[str, t.Any]
 ):
-
     # Import the actual models from your app not the template versions
     from eastern_bots.bot_template.models import TelegramChat, TelegramUser
 
