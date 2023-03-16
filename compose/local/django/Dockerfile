@@ -45,50 +45,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-
-#============================================
-# Google Chrome
-#============================================
-# can specify versions by CHROME_VERSION;
-#  e.g. google-chrome-stable=53.0.2785.101-1
-#       google-chrome-beta=53.0.2785.92-1
-#       google-chrome-unstable=54.0.2840.14-1
-#       latest (equivalent to google-chrome-stable)
-#       google-chrome-beta  (pull latest beta)
-#============================================
-ARG CHROME_VERSION="google-chrome-stable"
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-  && apt-get update -qqy \
-  && apt-get -qqy install \
-    ${CHROME_VERSION:-google-chrome-stable} \
-  && rm /etc/apt/sources.list.d/google-chrome.list \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-
-
-#============================================
-# Chrome webdriver
-#============================================
-# can specify versions by CHROME_DRIVER_VERSION
-# Latest released version will be used by default
-#============================================
-ARG CHROME_DRIVER_VERSION
-RUN if [ -z "$CHROME_DRIVER_VERSION" ]; \
-  then CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/") \
-    && NO_SUCH_KEY=$(curl -ls https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION} | head -n 1 | grep -oe NoSuchKey) ; \
-    if [ -n "$NO_SUCH_KEY" ]; then \
-      echo "No Chromedriver for version $CHROME_MAJOR_VERSION. Use previous major version instead" \
-      && CHROME_MAJOR_VERSION=$(expr $CHROME_MAJOR_VERSION - 1); \
-    fi ; \
-    CHROME_DRIVER_VERSION=$(wget --no-verbose -O - "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}"); \
-  fi \
-  && echo "Using chromedriver version: "$CHROME_DRIVER_VERSION \
-  && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
-  && rm -rf /usr/bin/chromedriver \
-  && unzip /tmp/chromedriver_linux64.zip -d /usr/bin \
-  && rm /tmp/chromedriver_linux64.zip \
-  && chmod 755 /usr/bin/chromedriver
-
+RUN apt-get update && \
+    apt-get install -y gnupg wget curl unzip --no-install-recommends && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
+    apt-get update -y && \
+    apt-get install -y google-chrome-stable && \
+    CHROMEVER=$(google-chrome --product-version | grep -o "[^\.]*\.[^\.]*\.[^\.]*") && \
+    DRIVERVER=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROMEVER") && \
+    wget -q --continue -P /chromedriver "http://chromedriver.storage.googleapis.com/$DRIVERVER/chromedriver_linux64.zip" && \
+    unzip /chromedriver/chromedriver* -d /chromedriver
 
 # All absolute dir copies ignore workdir instruction. All relative dir copies are wrt to the workdir instruction
 # copy python dependency wheels from python-build-stage
