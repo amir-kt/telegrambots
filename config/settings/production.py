@@ -155,22 +155,11 @@ LOGGING = {
             "formatter": "verbose",
         },
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
-        "django": {
+        "": {
             "handlers": ["console"],
-            "level": "INFO",
+            "level": "DEBUG",
             "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["console", "mail_admins"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-        "django.security.DisallowedHost": {
-            "level": "DEBUG",
-            "handlers": ["console", "mail_admins"],
-            "propagate": True,
         },
     },
 }
