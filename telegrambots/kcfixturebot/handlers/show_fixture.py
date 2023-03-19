@@ -29,7 +29,8 @@ async def fixture_text(message: types.Message, state: FSMContext):
             )
         )
 
-    except RuntimeError:
+    except Exception as e:
+        print(e)
         await message.answer(
             "Something went wrong! This could be because you've entered an invalid team name."
         )
