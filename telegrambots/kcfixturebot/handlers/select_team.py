@@ -24,6 +24,3 @@ async def handle_team_name(message: types.Message, state: FSMContext):
     await state.set_state(States.team_selected)
     await state.set_data({"team_name": message.text})
     await message.answer(strings.team_selected(message.text))
-
-    if await state_manager.set_game_info(await scrape_game_info(message.text), state):
-        await state_manager.set_last_scrape_time(state)
