@@ -25,4 +25,4 @@ aiogram==3.0.0b6
 
 # Web Scraping
 # ------------------------------------------------------------------------------
-selenium==4.6.0 # https://github.com/SeleniumHQ/selenium
+selenium==4.8.1 # https://github.com/SeleniumHQ/selenium
