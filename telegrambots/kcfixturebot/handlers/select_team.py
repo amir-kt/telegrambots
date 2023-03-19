@@ -4,8 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 from ..bot import dp
-from .utils import state_manager, strings
-from .utils.scraper import scrape_game_info
+from .utils import strings
 
 
 class States(StatesGroup):
