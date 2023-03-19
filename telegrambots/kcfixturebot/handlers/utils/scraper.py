@@ -30,7 +30,7 @@ async def scrape_game_info(team_name: str):
             "https://www.playhq.com/basketball-victoria/org/casey-basketball-association/senior-domestic-summer-202223"
             f"/thursday-men-b-grade/1035e459/R{round}"
         )
-        sleep(1.5)
+        sleep(5)
 
         # check to see if the first game's score is FINAL
         game_status = driver.find_element(
