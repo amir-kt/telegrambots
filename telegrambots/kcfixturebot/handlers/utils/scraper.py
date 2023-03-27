@@ -60,13 +60,20 @@ async def scrape_game_info(team_name: str):
                 f"1]/div[3]/div/a ",
             ).text.lower()
             if team_name.lower() in [team1_name, team2_name]:
-                datetime = driver.find_element(
-                    By.XPATH,
-                    f'//*[@id="root"]/section/main/div/div/div[1]/section'
-                    f"/section/div/div/div/div/ul/li/div[{i}]/div/div["
-                    f"2]/span[1]/div[2]/span ",
-                ).text
-                driver.close()
+                if round in ["SF", "GF"]:
+                    datetime = driver.find_element(
+                        By.XPATH,
+                        f'//*[@id="root"]/section/main/div/div/div[1]/section'
+                        f"/section/div/div/div/div/ul/li/div[{i}]/div/div["
+                        f"2]/span[2]/div[2]/span ",
+                    ).text
+                else:
+                    datetime = driver.find_element(
+                        By.XPATH,
+                        f'//*[@id="root"]/section/main/div/div/div[1]/section'
+                        f"/section/div/div/div/div/ul/li/div[{i}]/div/div["
+                        f"2]/span[1]/div[2]/span ",
+                    ).text
                 return datetime.split(",")
     driver.close()
 
