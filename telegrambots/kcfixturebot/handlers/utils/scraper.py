@@ -25,10 +25,10 @@ async def create_chrome_driver():
 
 async def scrape_game_info(team_name: str):
     driver = await create_chrome_driver()
-    for round in range(20, 23):
+    for round in [f"R{i}" for i in range(20, 23)] + ["SF", "GF"]:
         driver.get(
             "https://www.playhq.com/basketball-victoria/org/casey-basketball-association/senior-domestic-summer-202223"
-            f"/thursday-men-b-grade/1035e459/R{round}"
+            f"/thursday-men-b-grade/1035e459/{round}"
         )
         sleep(2)
 
@@ -73,10 +73,10 @@ async def scrape_game_info(team_name: str):
 
 async def scrape_game_screenshot(team_name: str):
     driver = await create_chrome_driver()
-    for round in range(20, 23):
+    for round in [f"R{i}" for i in range(20, 23)] + ["SF", "GF"]:
         driver.get(
             "https://www.playhq.com/basketball-victoria/org/casey-basketball-association/senior-domestic-summer-202223"
-            f"/thursday-men-b-grade/1035e459/R{round}"
+            f"/thursday-men-b-grade/1035e459/{round}"
         )
         sleep(1.5)
 
