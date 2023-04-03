@@ -2,11 +2,13 @@ import asyncio
 import json
 
 from asgiref.sync import async_to_sync
+from django import shortcuts
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .bot import dp, get_bot_instance
+from .models import UrlMapping
 
 
 def heartbeat(request):
@@ -48,3 +50,7 @@ async def poll_bot_updates(request, token):
 
     asyncio.create_task(dp.start_polling(bot))
     return HttpResponse("OK.")
+
+
+def redirect(request, uuid):
+    return shortcuts.redirect(UrlMapping.objects.get(baby_url=uuid).target_url)
