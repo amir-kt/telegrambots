@@ -27,10 +27,6 @@ class TelegramChat(models.Model):
     title = models.CharField(max_length=512, null=True, blank=True)
     username = models.CharField(max_length=128, null=True, blank=True)
 
-    # Remove this bit when used outside the template
-    class Meta:
-        abstract = True
-
     def is_private(self):
         return self.type == self.ChatTypes.PRIVATE
 
@@ -50,9 +46,17 @@ class TelegramUser(models.Model):
     last_name = models.CharField(max_length=128, null=True, blank=True)
     username = models.CharField(max_length=128, null=True, blank=True)
 
-    # Remove this bit when used outside the template
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return f"{self.first_name} {self.last_name} (@{self.username})"
+
+
+class UrlMapping(models.Model):
+    """
+    Represents a mapping from a baby url to a long url
+    """
+
+    baby_url = models.URLField(primary_key=True)
+    target_url = models.URLField()
+
+    def __str__(self):
+        return f"{self.baby_url} -> {self.target_url}"

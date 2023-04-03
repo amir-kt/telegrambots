@@ -1,3 +1,5 @@
 from django.contrib import admin  # noqa: F401
 
-# Register your models here.
+from telegrambots.babyurlbot.models import UrlMapping
+
+admin.site.register([UrlMapping])
