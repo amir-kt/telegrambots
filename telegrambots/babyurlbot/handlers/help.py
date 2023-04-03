@@ -8,4 +8,4 @@ from .strings import start_message
 
 @dp.message(Command(commands=["start"]))
 async def start(message: types.Message, state: FSMContext):
-    await message.reply(start_message)
+    await message.answer(start_message)

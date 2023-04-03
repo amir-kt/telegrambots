@@ -77,7 +77,7 @@ def load_handlers():
     Loads the handlers so they would be registered with the dispatcher.
     The order of registration determines the order they are run, hence ignoring isort and ordering them manually.
     """
-    from .handlers import help  # noqa: F401 isort:skip
+    from .handlers import help, baby  # noqa: F401 isort:skip
 
 
 load_handlers()

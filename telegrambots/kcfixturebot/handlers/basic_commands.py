@@ -10,5 +10,4 @@ from .utils import strings
 @dp.message(Command(commands=["start"]))
 async def start(message: types.Message, state: FSMContext):
     await state.set_state(State("started"))
-    print(message)
     await message.answer(strings.start_message)
