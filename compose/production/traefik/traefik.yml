@@ -56,10 +56,6 @@ http:
       # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
       headers:
         hostsProxyHeaders: ["X-CSRFToken"]
-    test-redirectregex:
-      redirectRegex:
-        regex: "^https?://babyurl\\.to/(.*)"
-        replacement: "http://amirtoosi.com/babyurlbot/redirect/${1}"
 
   services:
     django:
