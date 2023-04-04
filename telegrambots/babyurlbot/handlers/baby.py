@@ -24,6 +24,9 @@ async def set_url(message: types.Message, state: FSMContext):
         target_url_parsed = target_url_parsed._replace(scheme="https")
     target_url = target_url_parsed.geturl()
 
-    baby_url = shortuuid.uuid()
+    baby_url = f"r{shortuuid.ShortUUID().random(4)}d"
+    while UrlMapping.objects.filter(baby_url=baby_url).count() > 0:
+        baby_url = f"r{shortuuid.ShortUUID().random(4)}d"
+
     await UrlMapping.objects.acreate(baby_url=baby_url, target_url=target_url)
     await message.answer(f"your baby url: https://babyurl.to/{baby_url}")
