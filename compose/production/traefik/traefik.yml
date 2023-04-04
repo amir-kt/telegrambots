@@ -60,7 +60,7 @@ http:
 
     babyurl-replacePathRegex:
       replacePathRegex:
-        regex: "^/r(.*)d"
+        regex: "^/(r.*d)"
         replacement: "/babyurlbot/redirect/$1"
 
   services:
