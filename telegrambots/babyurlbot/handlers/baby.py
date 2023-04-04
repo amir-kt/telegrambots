@@ -5,7 +5,6 @@ from aiogram import types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State
-from asgiref.sync import sync_to_async
 
 from ..bot import dp
 from ..models import UrlMapping
@@ -26,6 +25,5 @@ async def set_url(message: types.Message, state: FSMContext):
     target_url = target_url_parsed.geturl()
 
     baby_url = shortuuid.uuid()
-    url_mapping = UrlMapping(baby_url=baby_url, target_url=target_url)
-    await sync_to_async(url_mapping.save)()
+    await UrlMapping.objects.acreate(baby_url=baby_url, target_url=target_url)
     await message.answer(f"your baby url: https://babyurl.to/{baby_url}")
