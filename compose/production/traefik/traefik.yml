@@ -58,7 +58,7 @@ http:
         hostsProxyHeaders: ["X-CSRFToken"]
     test-redirectregex:
       redirectRegex:
-        regex: "^http://babyurl.to/(.*)"
+        regex: "^http://babyurl\\.to/(.*)"
         replacement: "http://amirtoosi.com/babyurlbot/redirect/${1}"
 
   services:
