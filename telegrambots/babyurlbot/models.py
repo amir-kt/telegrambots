@@ -56,7 +56,7 @@ class UrlMapping(models.Model):
     """
 
     baby_url = models.URLField(primary_key=True)
-    target_url = models.URLField()
+    target_url = models.URLField(max_length=1000)
 
     def __str__(self):
         return f"{self.baby_url} -> {self.target_url}"
