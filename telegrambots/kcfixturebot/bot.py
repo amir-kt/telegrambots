@@ -5,7 +5,7 @@ from telegrambots.utils.bot_state_storage import DjangoCacheStorage
 dp = Dispatcher(storage=DjangoCacheStorage())
 
 bot_instances = {}
-allowed_bot_usernames = [x.lower() for x in ["kcFixtureBot"]]
+allowed_bot_usernames = [x.lower() for x in ["kcFixtureBot", "kcfixturetestbot"]]
 
 
 async def get_bot_instance(token) -> Bot:

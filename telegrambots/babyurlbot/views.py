@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 
 from asgiref.sync import async_to_sync
 from django import shortcuts
@@ -9,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .bot import dp, get_bot_instance
 from .models import UrlMapping
+
+logger = logging.getLogger(__name__)
 
 
 def heartbeat(request):
