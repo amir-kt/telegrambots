@@ -31,7 +31,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`amirtoosi.com`) || Host(`www.amirtoosi.com`)"
+      rule: "Host(`amirtoosi.com`) || Host(`www.amirtoosi.com`) || Host(`babyurl.to`) || Host(`www.babyurl.to`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -58,7 +58,7 @@ http:
         hostsProxyHeaders: ["X-CSRFToken"]
     test-redirectregex:
       redirectRegex:
-        regex: "^http://babyurl\\.to/(.*)"
+        regex: "^https?://babyurl\\.to/(.*)"
         replacement: "http://amirtoosi.com/babyurlbot/redirect/${1}"
 
   services:
