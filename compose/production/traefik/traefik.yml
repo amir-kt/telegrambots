@@ -36,6 +36,7 @@ http:
         - web-secure
       middlewares:
         - csrf
+        - babyurl-redirectregex
       service: django
       tls:
         # https://docs.traefik.io/master/routing/routers/#certresolver
@@ -58,7 +59,8 @@ http:
         hostsProxyHeaders: ["X-CSRFToken"]
     babyurl-redirectregex:
       redirectRegex:
-        regex: "^https?:\\/\\/babyurl\\.to\\/(.*)"
+        permanent: true
+        regex: "^https?://babyurl\\.to/(.*)"
         replacement: "https://babyurl.to/babyurlbot/redirect/$${1}"
 
   services:
