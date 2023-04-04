@@ -20,9 +20,10 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     labels:
-      - "traefik.http.routers.django.middlewares=add-context"
-      - "traefik.http.middlewares.django.redirectregex.regex=^https?:\\/\\/babyurl\\.to\\/(.*)"
-      - "traefik.http.middlewares.django.redirectregex.replacement=https://babyurl.to/babyurlbot/redirect/$${1}"
+      - "traefik.enable=true"
+      - "traefik.http.routers.django.middlewares=redirect-regex"
+      - "traefik.http.middlewares.redirect-regex.redirectregex.regex=^https?:\\/\\/babyurl\\.to\\/(.*)"
+      - "traefik.http.middlewares.redirect-regex.redirectregex.replacement=https://babyurl.to/babyurlbot/redirect/$${1}"
 
   postgres:
     build:
