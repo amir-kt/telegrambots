@@ -5,6 +5,7 @@ from aiogram import types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State
+from asgiref.sync import sync_to_async
 
 from ..bot import dp
 from ..models import UrlMapping
@@ -25,8 +26,13 @@ async def set_url(message: types.Message, state: FSMContext):
     target_url = target_url_parsed.geturl()
 
     baby_url = f"r{shortuuid.ShortUUID().random(4)}d"
-    while UrlMapping.objects.filter(baby_url=baby_url).exists():
+    baby_url_entry = await sync_to_async(UrlMapping.objects.filter)(baby_url=baby_url)
+
+    while await sync_to_async(baby_url_entry.exists)():
         baby_url = f"r{shortuuid.ShortUUID().random(4)}d"
+        baby_url_entry = await sync_to_async(UrlMapping.objects.filter)(
+            baby_url=baby_url
+        )
 
     await UrlMapping.objects.acreate(baby_url=baby_url, target_url=target_url)
     await message.answer(f"your baby url: https://babyurl.to/{baby_url}")
