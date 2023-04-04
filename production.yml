@@ -19,6 +19,10 @@ services:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
+    labels:
+      - "traefik.http.routers.django.middlewares=add-context"
+      - "traefik.http.middlewares.django.redirectregex.regex=^https?:\\/\\/babyurl\\.to\\/(.*)"
+      - "traefik.http.middlewares.django.redirectregex.replacement=https://babyurl.to/babyurlbot/redirect/$${1}"
 
   postgres:
     build:
@@ -44,9 +48,6 @@ services:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
       - "0.0.0.0:5555:5555"
-    labels:
-      - "traefik.http.middlewares.django.redirectregex.regex=^https?:\\/\\/babyurl\\.to\\/(.*)"
-      - "traefik.http.middlewares.django.redirectregex.replacement=https://babyurl.to/babyurlbot/redirect/$${1}"
 
   redis:
     image: redis:6
