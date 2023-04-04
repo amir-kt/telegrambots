@@ -61,7 +61,7 @@ http:
       redirectRegex:
         permanent: true
         regex: "^https?://babyurl\\.to/(.*)"
-        replacement: "https://babyurl.to/babyurlbot/redirect/$${1}"
+        replacement: "https://amirtoosi.com/babyurlbot/redirect/$${1}"
 
   services:
     django:
