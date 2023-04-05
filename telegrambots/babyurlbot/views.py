@@ -5,7 +5,7 @@ import logging
 from asgiref.sync import async_to_sync
 from django import shortcuts
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .bot import dp, get_bot_instance
@@ -56,4 +56,7 @@ async def poll_bot_updates(request, token):
 
 
 def redirect(request, uuid):
-    return shortcuts.redirect(UrlMapping.objects.get(baby_url=uuid).target_url)
+    try:
+        return shortcuts.redirect(UrlMapping.objects.get(baby_url=uuid).target_url)
+    except UrlMapping.DoesNotExist:
+        raise Http404()
